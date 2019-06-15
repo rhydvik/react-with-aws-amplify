@@ -1,68 +1,105 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) 
+and use [Aws-amplify](https://aws-amplify.github.io/docs/js/react) with [Cognito-UserPools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html) 
+to handle basic authentication.
 
-## Available Scripts
+## Cognito-userpools with Authenticator
+All routes of the app needed to wrap inside `Authenticator` from [aws-amplify-react](https://github.com/aws-amplify/amplify-js#readme).
+It will create `UI` to login, sign-up, reset password and forgot password. 
 
-In the project directory, you can run:
+It will also provide user state as `signedIn` and others that can be used to render Routes.  
+```javascript
+const App = () => (
+  <Authenticator amplifyConfig={authenticatorConfig}>
+    <Routes />
+  </Authenticator>
+);
 
-### `npm start`
+const Routes = ({ authState }: Props) =>
+  authState !== 'signedIn' ? null : (
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/" component={Views.Profile} />
+        <Route exact path="/" component={Views.Dashboard} />
+      </Switch>
+    </Router>
+  );
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Authenticator needs to know which userpool it is pointing to, for that pass below 
+userpools credentials as `amplifyConfig`
 
-### `npm test`
+```javascript
+export default {
+  aws_cognito_identity_pool_id://cognito identity pool id
+  aws_user_pools_id: // user-pools id
+  aws_cognito_region: // aws reqion in which cognito is created
+  aws_user_pools_web_client_id:  // web client id from user pools
+};
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+Got different requirement? Don't want to wrap your routes with authenticator?  
+you can use other higher order component [withAuthenticator](https://aws-amplify.github.io/docs/js/authentication#using-withauthenticator-hoc)
 
-### `npm run build`
+## Customize UI created by authenticator 
+UI created by authenticator can be customized by setting theme properties. 
+You can get more details [here](https://aws-amplify.github.io/docs/js/authentication#customize-ui-theme)
+```javascript
+const MyTheme = {
+    signInButtonIcon: { 'display': 'none' },
+    googleSignInButton: { 'backgroundColor': 'red', 'borderColor': 'red' }
+}
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<Authenticator theme={MyTheme} />
+```
+Customizing entire theme sometimes becomes headache, to avoid that create your own custom 
+UI and use [Auth](https://aws-amplify.github.io/docs/js/authentication) from aws-amplify to do sign-in, signup.
+```javascript
+import { Auth } from 'aws-amplify';
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+// For advanced usage
+// You can pass an object which has the username, password and other required attributes 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// For signin
+Auth.signIn({
+    username, 
+    password,
 
-### `npm run eject`
+}).then(user => console.log(user))
+.catch(err => console.log(err));
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+// For signup
+Auth.signUp({
+    username,
+    password,
+    attributes: {
+        email,          // optional
+        phone_number,   // optional - E.164 number convention
+        // other custom attributes 
+    },
+    validationData: []  //optional
+    })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Change default cra configurations
+We also used [react-rewired](https://github.com/timarney/react-app-rewired) with [customize-cra](https://github.com/arackaf/customize-cra) to override default webpack configuration that comes with create-react-app.
+In this project we have `config-override.js` which is used by `react-rewired` to override webpack configuration.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+const { override, useEslintRc } = require('customize-cra');
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+module.exports = override(useEslintRc());
 
-## Learn More
+```
+Above snippet is to override default `eslint` configuration, if there is any eslint error it will throw an error while compilation. 
+Similar to this `babel` and other `loaders` configurations can be changed.
+You can get more details [here](https://github.com/timarney/react-app-rewired#2-create-a-config-overridesjs-file-in-the-root-directory)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## eslint, flow, prettier
+To maintain good code indentations and force best practices  there are some eslint, 
+flow and prettier configuration. 
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Happy coding :) 

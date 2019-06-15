@@ -1,0 +1,18 @@
+{
+    "flow.runOnAllFiles": true,
+    "editor.tabSize": 2,
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#5d96cd",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#f0cedf",
+        "activityBarBadge.foreground": "#15202b",
+        "titleBar.activeBackground": "#3a7dbd",
+        "titleBar.inactiveBackground": "#3a7dbd99",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "statusBar.background": "#3a7dbd",
+        "statusBarItem.hoverBackground": "#5d96cd",
+        "statusBar.foreground": "#e7e7e7"
+    },
+}
