@@ -26,7 +26,7 @@ const Routes = ({ authState }: Props) =>
 
 ```
 
-Authenticator needs to know which userpool it is pointing to, for that pass below 
+The authenticator needs to know which userpool it is pointing to, for that pass below 
 userpools credentials as `amplifyConfig`
 
 ```javascript
@@ -38,7 +38,7 @@ export default {
 };
 
 ```
-Got different requirement? Don't want to wrap your routes with authenticator?  
+Got a different requirement? Don't want to wrap your routes with authenticator?  
 you can use other higher order component [withAuthenticator](https://aws-amplify.github.io/docs/js/authentication#using-withauthenticator-hoc)
 
 ## Customize UI created by authenticator 
@@ -52,7 +52,7 @@ const MyTheme = {
 
 <Authenticator theme={MyTheme} />
 ```
-Customizing entire theme sometimes becomes headache, to avoid that create your own custom 
+Customizing entire theme sometimes becomes a headache, to avoid that create your own custom 
 UI and use [Auth](https://aws-amplify.github.io/docs/js/authentication) from aws-amplify to do sign-in, signup.
 ```javascript
 import { Auth } from 'aws-amplify';
@@ -93,7 +93,7 @@ const { override, useEslintRc } = require('customize-cra');
 module.exports = override(useEslintRc());
 
 ```
-Above snippet is to override default `eslint` configuration, if there is any eslint error it will throw an error while compilation. 
+Above snippet is to override the default `eslint` configuration, if there is any eslint error it will throw an error while compilation. 
 Similar to this `babel` and other `loaders` configurations can be changed.
 You can get more details [here](https://github.com/timarney/react-app-rewired#2-create-a-config-overridesjs-file-in-the-root-directory)
 
