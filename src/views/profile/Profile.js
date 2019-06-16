@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'aws-amplify-react/dist/AmplifyUI';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   return (

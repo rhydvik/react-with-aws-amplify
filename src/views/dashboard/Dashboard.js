@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'aws-amplify-react/dist/AmplifyUI';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   return (
     <>
       <h1>Dashboard</h1>
-      Go to <Link to="/profile"> Profile </Link>
+      Go to <Link to="/"> Profile </Link>
     </>
   );
 };

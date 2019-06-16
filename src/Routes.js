@@ -15,7 +15,7 @@ const Routes = ({ authState }: Props) =>
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={Views.Profile} />
-        <Route exact path="/" component={Views.Dashboard} />
+        <Route path="/dashboard" component={Views.Dashboard} />
       </Switch>
     </Router>
   );
