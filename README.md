@@ -33,7 +33,7 @@ userpools credentials as `amplifyConfig`
 export default {
   aws_cognito_identity_pool_id://cognito identity pool id
   aws_user_pools_id: // user-pools id
-  aws_cognito_region: // aws reqion in which cognito is created
+  aws_cognito_region: // aws region in which cognito is created
   aws_user_pools_web_client_id:  // web client id from user pools
 };
 
