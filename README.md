@@ -7,24 +7,8 @@ All routes of the app needed to wrap inside `Authenticator` from [aws-amplify-re
 It will create `UI` to login, sign-up, reset password and forgot password. 
 
 It will also provide user state as `signedIn` and others that can be used to render Routes.  
-```javascript
-const App = () => (
-  <Authenticator amplifyConfig={authenticatorConfig}>
-    <Routes />
-  </Authenticator>
-);
 
-const Routes = ({ authState }: Props) =>
-  authState !== 'signedIn' ? null : (
-    <Router history={history}>
-      <Switch>
-        <Route exact path="/" component={Views.Profile} />
-        <Route exact path="/" component={Views.Dashboard} />
-      </Switch>
-    </Router>
-  );
-
-```
+![alt text](./routeConfig.png)
 
 The authenticator needs to know which userpool it is pointing to, for that pass below 
 userpools credentials as `amplifyConfig`
