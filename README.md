@@ -8,7 +8,7 @@ It will create `UI` to login, sign-up, reset password and forgot password.
 
 It will also provide user state as `signedIn` and others that can be used to render Routes.  
 
-![alt text](./routeConfig.png)
+![alt text](./routes.png)
 
 The authenticator needs to know which userpool it is pointing to, for that pass below 
 userpools credentials as `amplifyConfig`
