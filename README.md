@@ -1,6 +1,7 @@
 # The Logo ⚛️
 
-#Motivation
+# Motivation
+
 Sometimes we need to create an application where we don't have a huge user base, we provide a tool to 
 manage already running businesses. We wanted a configuration/way where we can create all user registration
 and login related pages in one go and start working on business logic. One of the options we explored and 
@@ -11,7 +12,8 @@ Aws-amplify provides us a way to talk to Cognito-UserPools and manages session a
 authentication parts. Cognito-UserPools helps in managing users by providing basic tools like OTP, EMAIL, 
 social logins etc.
 
-#Overview
+# Overview
+
 This project was bootstrapped with Create React App and use Aws-amplify with Cognito-UserPools to handle basic authentication.
 We also use [react-rewired](https://github.com/timarney/react-app-rewired) and [customize-cra](https://github.com/arackaf/customize-cra)
 
